@@ -11,7 +11,8 @@ constructor(props){
         username: '',
         password: '',
         email: '',
-        passwordConfirmation:''
+        passwordConfirmation:'',
+        errors: []
     };
 }
 handleChange = (e)=>{
@@ -21,18 +22,44 @@ handleChange = (e)=>{
         [e.target.name] : e.target.value
     });
 }
- 
-handleSubmit = (e)=>{
-    e.preventDefault();
-    firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
-    .then(createdUSer=>{
-        console.log(createdUSer);
-    }).catch(err=>{
-        console.log(err);
-    });
 
+isFormEmpty = ()=>{
+    if(this.state.username !== '' 
+        || this.state.email !== ''
+        || this.state.password !== ''
+        || this.state.passwordConfirmation !== ''){
+            return true;
+    }
+}
+
+isPasswordValid = ()=>{
     
+};
+ 
+isFormValid = ()=>{
+    let errors = [];
+    let error;
+    if(this.isFormEmpty()){
+        error = {message: 'Please fill all the values'};
+        this.setState({errors: errors.concat(error)});
+        return false;
+    }else if(!this.isPasswordValid()) {
 
+    }else{
+        return true;
+    }
+}
+
+handleSubmit = (e)=>{
+    if(this.isFormValid()){
+        e.preventDefault();
+        firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
+        .then(createdUSer=>{
+            console.log(createdUSer);
+        }).catch(err=>{
+            console.log(err);
+        });
+    }
 }
 
     render(){
