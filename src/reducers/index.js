@@ -7,7 +7,7 @@ const initialState = {
     isLoading: true
 };
 
-const user_reducer = (state=initialState,action) => {
+const user_reducer = (state = initialState,action) => {
     switch(action.type) {
         case actionTypes.SET_USER: {
             return {
@@ -15,6 +15,14 @@ const user_reducer = (state=initialState,action) => {
                 isLoading: false
             }
         }
+        case actionTypes.CLEAR_USER: {
+            return{
+                ...initialState,
+                isLoading: false
+
+            }
+        }
+
         default:
             return state;
     }
