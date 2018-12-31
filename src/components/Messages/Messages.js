@@ -60,7 +60,7 @@ class Messages extends React.Component{
         
         return(
             <React.Fragment>
-                <MessagesHeader/>
+                <MessagesHeader />
 
                 <Segment>
                     <Comment.Group className="messages">
