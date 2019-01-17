@@ -29,9 +29,7 @@ class Message extends React.Component{
                     <Comment.Metadata>
                         {this.timeFromNow(message.timestamp)}
                     </Comment.Metadata>
-                    <Comment.Text>
-                        {message.content}
-                    </Comment.Text>
+                    
                     {   
                         this.isImage(message) ? 
                         <Image src={message.image} className="message__image"/>:

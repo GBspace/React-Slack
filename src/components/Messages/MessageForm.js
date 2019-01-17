@@ -16,7 +16,9 @@ class MessageForm extends React.Component{
         uploadState: '',
         uploadTask: null,
         storageRef: firebase.storage().ref(),
-        percentUploaded: 0
+        percentUploaded: 0,
+        isPrivateChannel: this.props.isPrivateChannel,
+        getMessagesRef: this.props.getMessagesRef
     }
 
     openModal = ()=>{
@@ -60,14 +62,14 @@ class MessageForm extends React.Component{
     };
 
     sendMessage = ()=>{
-        const {messagesRef} = this.props;
-        const {message,channel} = this.state;
+        // const {messagesRef} = this.props;
+        const {message,channel,getMessagesRef} = this.state;
         // console.log("channel id " ,channel.id);
         // console.log("messageRef ", messagesRef);
         // console.log("message " , message);
         if(message){
             this.setState({loading:true});
-            messagesRef
+            getMessagesRef()
             .child(channel.id)
             .push()
             .set(this.createMessage())
@@ -94,12 +96,21 @@ class MessageForm extends React.Component{
         }
     }
 
+    getPath = ()=>{
+        if(this.props.isPrivateChannel){
+            return `chat/private/-${this.state.channel.id}`;
+        }else{
+            return 'chat/public/';
+        }
+    }
+
     uploadFile = (file,metadata)=>{
         // console.log(file);
         // console.log(metadata);
         const pathToUpload = this.state.channel.id;
-        const ref = this.props.messagesRef;
-        const filePath = `chat/public/${uuidv4()}.jpg`;
+        const ref = this.state.getMessagesRef();
+        // const filePath = `chat/public/${uuidv4()}.jpg`;
+        const filePath = `${this.getPath()}/${uuidv4()}.jpg`;
 
         this.setState(
             {
@@ -192,6 +203,7 @@ class MessageForm extends React.Component{
                         content="Upload Media"
                         labelPosition="right"
                         icon="cloud upload"
+                        disabled={uploadState === 'uploading'}
                         onClick={this.openModal}
                     />
                 </Button.Group>
