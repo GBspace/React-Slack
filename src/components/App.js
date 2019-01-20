@@ -9,9 +9,9 @@ import SidePanel from './SidePanel/SidePanel';
 import ColorPanel from './ColorPanel/ColorPanel';
 
 const App = (props)=>{
-  const {currentUser, currentChannel,isPrivateChannel} = props;
+  const {currentUser, currentChannel,isPrivateChannel,usersPosts} = props;
 
-  // console.log(currentUser);
+  // console.log("usersPosts " , usersPosts);
   // console.log(currentChannel);
   return(
     <Grid columns="equal" className="app" style={{background: '#eee'}}>
@@ -29,7 +29,14 @@ const App = (props)=>{
       </Grid.Column>
       
       <Grid.Column width={4}>
-        <MetaPanel />  
+      { currentChannel &&  
+        <MetaPanel 
+          key={currentChannel && currentChannel.currentChannel.id}
+          isPrivateChannel={isPrivateChannel}
+          currentChannel={currentChannel && currentChannel.currentChannel}
+          usersPosts={usersPosts}
+        />  
+      }
       </Grid.Column>
     </Grid>
   );
@@ -38,7 +45,8 @@ const App = (props)=>{
 const mapStateToProps = (state)=>({
   currentUser: state.user.currentUser,
   currentChannel: state.channel.currentChannel,
-  isPrivateChannel: state.channel.isPrivateChannel
+  isPrivateChannel: state.channel.isPrivateChannel,
+  usersPosts: state.channel.usersPosts
 });
 
 export default connect(mapStateToProps)(App);
