@@ -28,7 +28,7 @@ class MetaPanel extends React.Component{
         console.log("usersPosts metaPanel ", usersPosts);
         const postList =  Object.entries(usersPosts)
                 .sort((a,b)=>
-                    b[1] - a[1]
+                    b[1].count - a[1].count
                 )
                 .map(([key,val],i)=>{
                     // if(key !== undefined){
@@ -54,7 +54,7 @@ class MetaPanel extends React.Component{
     render(){
         const {activeIndex,isPrivateChannel,currentChannel} = this.state;
         // console.log("state " , this.state);
-        console.log("props ", this.props);
+        // console.log("props ", this.props);
         if(this.props.isPrivateChannel){
             return null;
         }

@@ -96,10 +96,15 @@ class Messages extends React.Component{
                 messages: loadedMessages,
                 messagesLoading: false
             });
-        console.log("loaded messges ", loadedMessages);
+        // console.log("loaded messges ", loadedMessages);
         this.countUniqueUsers(loadedMessages);
         this.countUserPosts(loadedMessages);
         });
+        if(loadedMessages.length === 0){
+            this.countUserPosts([]);
+        }
+        
+
     };
 
     countUserPosts = (messages)=>{
@@ -114,7 +119,7 @@ class Messages extends React.Component{
             }
             return acc;
         },{});
-        console.log("userPosts " , userPosts);
+        // console.log("updating redux " , userPosts);
         this.props.setUserPosts(userPosts);
     }
 

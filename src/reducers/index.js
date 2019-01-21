@@ -55,6 +55,7 @@ const channel_reducer = (state = initialChannelState,action) =>{
         }
 
         case actionTypes.SET_USER_POSTS : {
+            
             return ({
                 ...state,
                 usersPosts: action.payload.usersPosts
