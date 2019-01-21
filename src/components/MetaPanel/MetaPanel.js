@@ -25,7 +25,7 @@ class MetaPanel extends React.Component{
     }
 
     displayTopPosters = (usersPosts)=>{
-        console.log("usersPosts metaPanel ", usersPosts);
+        // console.log("usersPosts metaPanel ", usersPosts);
         const postList =  Object.entries(usersPosts)
                 .sort((a,b)=>
                     b[1].count - a[1].count
@@ -47,7 +47,7 @@ class MetaPanel extends React.Component{
                         )
                     // }
                 });
-        console.log("sorted list ", postList);
+        // console.log("sorted list ", postList);
         return postList;
     };
 

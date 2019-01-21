@@ -36,3 +36,11 @@ export const setUserPosts = (usersPosts) =>({
         usersPosts
     }
 });
+
+export const setColors = (primaryColor,secondaryColor) =>({
+    type: actionTypes.SET_COLORS,
+    payload: {
+        primaryColor,
+        secondaryColor
+    }
+});
