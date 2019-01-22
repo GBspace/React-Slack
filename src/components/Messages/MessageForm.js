@@ -18,7 +18,8 @@ class MessageForm extends React.Component{
         storageRef: firebase.storage().ref(),
         percentUploaded: 0,
         isPrivateChannel: this.props.isPrivateChannel,
-        getMessagesRef: this.props.getMessagesRef
+        getMessagesRef: this.props.getMessagesRef,
+        typingRef:firebase.database().ref('typing'),
     }
 
     openModal = ()=>{
@@ -63,7 +64,7 @@ class MessageForm extends React.Component{
 
     sendMessage = ()=>{
         // const {messagesRef} = this.props;
-        const {message,channel,getMessagesRef} = this.state;
+        const {message,channel,getMessagesRef,typingRef,currentUser} = this.state;
         // console.log("channel id " ,channel.id);
         // console.log("messageRef ", messagesRef);
         // console.log("message " , message);
@@ -79,6 +80,9 @@ class MessageForm extends React.Component{
                     message: '',
                     errors: []
                 });
+                typingRef.child(channel.id)
+                .child(currentUser.uid)
+                .remove();
             })
             .catch((err)=>{
                 console.log(err);
@@ -170,6 +174,20 @@ class MessageForm extends React.Component{
         });
     }
 
+    handleKeyDown = ()=>{
+        const {message,typingRef,channel,currentUser} = this.state;
+        if(message !== ""){
+            typingRef.child(channel.id)
+            .child(currentUser.uid)
+            .set(currentUser.displayName)
+        }else{
+            console.log("message removed");
+            typingRef.child(channel.id)
+            .child(currentUser.uid)
+            .remove();
+        }
+    }
+
     render(){
         const {errors, message,loading,modal, percentUploaded,uploadState} = this.state;
         // console.log(errors);
@@ -183,6 +201,7 @@ class MessageForm extends React.Component{
                     labelPosition="left"
                     placeholder="messsage goes here"
                     onChange={this.handleChange}
+                    onKeyDown={this.handleKeyDown}
                     className={
                         errors.some(error => error && error.message.toLowerCase().includes("message") ) ? "error" : ""
                     }
