@@ -1,6 +1,6 @@
 {
-  "hosting": {
-    "public":"./build"
+  "hosting":{
+    "public":"build"
   },
   "database": {
     "rules": "database.rules.json"

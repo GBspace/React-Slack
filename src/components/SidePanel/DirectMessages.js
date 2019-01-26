@@ -11,7 +11,6 @@ class DirectMessages extends React.Component{
         users: [],
         user: this.props.currentUser,
         usersRef: firebase.database().ref('users'),
-        users: [],
         connectedRef: firebase.database().ref('.info/connected'),
         presenceRef: firebase.database().ref('presence'),
         activeChannel: ''

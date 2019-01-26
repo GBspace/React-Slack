@@ -7,7 +7,7 @@ class Message extends React.Component{
 
     isOwnMessage = (message,user)=>{
         // console.log("user.uid " , user.uid);
-        return(message.user.id == user.uid) ? 'message__self' : '';
+        return(message.user.id === user.uid) ? 'message__self' : '';
     };
 
     isImage = (message)=>{

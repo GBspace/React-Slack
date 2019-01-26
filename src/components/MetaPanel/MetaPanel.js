@@ -52,7 +52,7 @@ class MetaPanel extends React.Component{
     };
 
     render(){
-        const {activeIndex,isPrivateChannel,currentChannel} = this.state;
+        const {activeIndex,currentChannel} = this.state;
         // console.log("state " , this.state);
         // console.log("props ", this.props);
         if(this.props.isPrivateChannel){
