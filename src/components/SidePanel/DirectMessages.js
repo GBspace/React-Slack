@@ -24,6 +24,16 @@ class DirectMessages extends React.Component{
         }
     }
 
+    componentWillUnmount(){
+        this.removeListeners();
+    }
+
+    removeListeners = ()=>{
+        this.state.usersRef.off();
+        this.state.presenceRef.off();
+        this.state.connectedRef.off();
+    }
+
     addStatusToUsers = (userId, connected = true)=>{
         const updatedUsers = this.state.users.reduce((acc,user)=>{
             if(user.uid === userId){
