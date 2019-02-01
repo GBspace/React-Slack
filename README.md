@@ -32,6 +32,8 @@ Enhancements:
 
 --> Scroll down to the end on entering the channel.
 
+--> Making it responsive to adjust to different screens.
+
 
 
 
